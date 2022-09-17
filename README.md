@@ -3,9 +3,9 @@
 <br/>
 SQL запрос для второго задания:
 <br/>
-SELECT p.Name, c.Name
-FROM Products AS p
-LEFT OUTER JOIN ProductCategory AS pc
-  ON p.Id = pc.ProductId
-LEFT OUTER JOIN Categories AS c
-  ON c.Id = pc.CategoryId
+SELECT p.Name, c.Name <br/>
+FROM Products AS p <br/>
+LEFT OUTER JOIN ProductCategory AS pc <br/>
+  ON p.Id = pc.ProductId <br/>
+LEFT OUTER JOIN Categories AS c <br/>
+  ON c.Id = pc.CategoryId <br/>
