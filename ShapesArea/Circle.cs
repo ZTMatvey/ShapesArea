@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShapesArea
 {
-    public sealed class Circle : IShape
+    public sealed class Circle : Shape
     {
         private readonly double m_radius;
         public double Radius { get => m_radius; }
@@ -16,11 +16,6 @@ namespace ShapesArea
                 throw new ArgumentException("Radius must be greater than 0.");
             m_radius = radius;
         }
-        public double GetArea()
-        {
-            var area = Math.PI * Math.Pow(m_radius, 2);
-            return area;
-        }
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
@@ -29,9 +24,6 @@ namespace ShapesArea
             var isEqual = m_radius == other.m_radius;
             return isEqual;
         }
-        public override int GetHashCode()
-        {
-            return m_radius.GetHashCode();
-        }
+        public override int GetHashCode()=> m_radius.GetHashCode();
     }
 }

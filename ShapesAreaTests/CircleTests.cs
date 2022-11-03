@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShapesArea;
+using ShapesArea.Visitors;
 using System;
 
 namespace ShapesAreaTests
@@ -8,42 +9,36 @@ namespace ShapesAreaTests
     public sealed class CircleTests
     {
         [TestMethod]
-        public void Creation()
+        public void CreationWithNegativeRadius()
         {
-            var circle = new Circle(10);
-            circle = new Circle(110);
-            circle = new Circle(32141);
-            Assert.ThrowsException<ArgumentException>(()=> circle= new Circle(-11));
-            Assert.ThrowsException<ArgumentException>(()=> circle= new Circle(-111));
-            Assert.ThrowsException<ArgumentException>(()=> circle= new Circle(-321142));
-            Assert.ThrowsException<ArgumentException>(()=> circle= new Circle(0));
+            Assert.ThrowsException<ArgumentException>(() =>
+            {
+                Circle circle = new(-11);
+            });
+        }
+        [TestMethod]
+        public void CreationWithZeroRadius()
+        {
+            Assert.ThrowsException<ArgumentException>(() =>
+            {
+                Circle circle = new(0);
+            });
         }
         [TestMethod]
         public void AreaCorrect()
         {
             var circle = new Circle(3);
             var area = circle.GetArea();
-            var roundedArea = Math.Round(area, 8);
             var expected = 28.27433388;
-            Assert.IsTrue(roundedArea == expected);
-            ///
-            circle = new Circle(234);
-            area = circle.GetArea();
-            roundedArea = Math.Round(area, 8);
-            expected = 172021.04733996;
-            Assert.IsTrue(roundedArea == expected);
+            Assert.IsTrue(area == expected);
         }
         [TestMethod]
-        public void Equality()
+        public void AreaNotCorrect()
         {
-            var circle = new Circle(15);
-            var otherCircle = new Circle(15);
-            Assert.IsTrue(circle.Equals(otherCircle));
-            otherCircle = new Circle(14);
-            Assert.IsFalse(circle.Equals(otherCircle));
-            Assert.IsFalse(circle.Equals(null));
-            var triangle = new Triangle(15, 23, 32);
-            Assert.IsFalse(circle.Equals(triangle));
+            var circle = new Circle(4);
+            var area = circle.GetArea();
+            var expected = 16;
+            Assert.IsFalse(area == expected);
         }
     }
 }

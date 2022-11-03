@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ShapesArea
 {
-    public sealed class Triangle : IShape
+    public sealed class Triangle : Shape
     {
-        private readonly double[] m_sides;
         private static bool IsExist(double[] sides)
         {
             var side2Check = sides[0] + sides[1] > sides[2];
@@ -17,11 +16,8 @@ namespace ShapesArea
             var isExist = side0Check && side1Check && side2Check;
             return isExist;
         }
-        public double[] Sides { get
-            {
-                return m_sides.Clone() as double[];
-            } 
-        }
+        private readonly double[] m_sides;
+        public double[] Sides => m_sides.Clone() as double[];
         public Triangle(double first, double second, double third): this(new double[] { first, second, third })
         {}
         public Triangle(double[] sides)
@@ -35,15 +31,6 @@ namespace ShapesArea
                 throw new ArgumentException("Triangle with the same sides cannot exist.");
             m_sides = sides.Clone() as double[];
             Array.Sort(m_sides);
-        }
-        public double GetArea()
-        {
-            var semiper = m_sides.Sum() / 2;
-            var area = Math.Sqrt(semiper * 
-                (semiper - m_sides[0]) * 
-                (semiper - m_sides[1]) * 
-                (semiper - m_sides[2]));
-            return area;
         }
         public bool IsRight()
         {
@@ -63,9 +50,6 @@ namespace ShapesArea
             isEqual = isEqual && m_sides[2] == other.m_sides[2];
             return isEqual;
         }
-        public override int GetHashCode()
-        {
-            return m_sides.GetHashCode();
-        }
+        public override int GetHashCode()=> m_sides.GetHashCode();
     }
 }
